@@ -9,6 +9,8 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,6 +28,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Install MinGW for windows setup
+        run: apt-get install mingw-w64
       - name: Prepare Rustup target
         run: rustup target add ${{matrix.target}} --toolchain stable
       - name: Build release binary
@@ -34,7 +38,7 @@ jobs:
         run: |
           mkdir dist
           apt-get install zip
-          zip -rv -9 dist/$${matrix.name}}.zip target/$${matrix.target}}/release/*
+          zip -rv -D -9 dist/$${matrix.name}}.zip target/$${matrix.target}}/release/racket-rs
 
       - name: Upload release artifact
         uses: actions/upload-artifact@v4
