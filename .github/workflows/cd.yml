@@ -1,0 +1,62 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: [ "CI" ]
+    branches: [ "master" ]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        target: [ aarch64-apple-darwin, x86_64-apple-darwin, x86_64-pc-windows-gnu, x86_64-unknown-linux-gnu ]
+        include:
+          - target: aarch64-apple-darwin
+            name: MacOS (Apple Silicon)
+          - target: x86_64-apple-darwin
+            name: MacOS (Intel)
+          - target: x86_64-pc-windows-gnu
+            name: Windows
+          - target: x86_64-unknown-linux-gnu
+            name: Linux
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build release binary
+        run: cargo build --release --target ${{matrix.target}}
+      - name: Prepare release artifact
+        run: |
+          mkdir dist
+          apt-get install zip
+          zip -rv -9 dist/$${matrix.name}}.zip target/$${matrix.target}}/release/*
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: $${matrix.name}}.zip
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@4
+        with:
+          node-version: "lts/*"
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
