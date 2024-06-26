@@ -26,6 +26,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare Rustup target
+        run: rustup target add ${{matrix.target}} --toolchain stable
       - name: Build release binary
         run: cargo build --release --target ${{matrix.target}}
       - name: Prepare release artifact
