@@ -29,15 +29,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install MinGW for windows setup
-        run: apt-get install mingw-w64
+        run: sudo apt-get install mingw-w64
       - name: Prepare Rustup target
         run: rustup target add ${{matrix.target}} --toolchain stable
       - name: Build release binary
         run: cargo build --release --target ${{matrix.target}}
       - name: Prepare release artifact
         run: |
-          mkdir dist
-          apt-get install zip
+          sudo mkdir dist
+          sudo apt-get install zip
           zip -rv -D -9 dist/$${matrix.name}}.zip target/$${matrix.target}}/release/racket-rs
 
       - name: Upload release artifact
