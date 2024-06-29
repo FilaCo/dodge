@@ -13,37 +13,22 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        target: [ aarch64-apple-darwin, x86_64-apple-darwin, x86_64-pc-windows-gnu, x86_64-unknown-linux-gnu ]
-        include:
-          - target: aarch64-apple-darwin
-            name: MacOS (Apple Silicon)
-          - target: x86_64-apple-darwin
-            name: MacOS (Intel)
-          - target: x86_64-pc-windows-gnu
-            name: Windows
-          - target: x86_64-unknown-linux-gnu
-            name: Linux
-
     steps:
       - uses: actions/checkout@v4
-      - name: Install MinGW for windows setup
-        run: sudo apt-get install mingw-w64
       - name: Prepare Rustup target
-        run: rustup target add ${{matrix.target}} --toolchain stable
+        run: rustup target add x86_64-unknown-linux-gnu --toolchain stable
       - name: Build release binary
-        run: cargo build --release --target ${{matrix.target}}
+        run: cargo build --release --target x86_64-unknown-linux-gnu
       - name: Prepare release artifact
         run: |
           sudo mkdir dist
           sudo apt-get install zip
-          zip -rv -D -9 dist/$${matrix.name}}.zip target/$${matrix.target}}/release/racket-rs
+          zip -rv -D -9 dist/Linux.zip target/x86_64-unknown-linux-gnu/release/racket-rs
 
       - name: Upload release artifact
         uses: actions/upload-artifact@v4
         with:
-          name: $${matrix.name}}.zip
+          name: Linux.zip
           path: dist/
           if-no-files-found: error
 
