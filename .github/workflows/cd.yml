@@ -43,7 +43,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Release
