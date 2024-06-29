@@ -43,10 +43,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Release
-        uses: actions/setup-node@4
+      - uses: actions/setup-node@4
         with:
           node-version: lts/*
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
