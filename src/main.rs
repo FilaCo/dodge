@@ -1,4 +1,4 @@
-use racket_rs::v1::{RacketCompiler, RacketResult};
+use racketc::v1::{RacketCompiler, RacketResult};
 
 fn main() -> RacketResult<()> {
     RacketCompiler::new().run()
