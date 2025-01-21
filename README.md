@@ -1,7 +1,12 @@
 <div align="center">
 
-![Dodge logo light](media/logo-light.png#gh-light-mode-only)
-![Dodge logo dark](media/logo-dark.png#gh-dark-mode-only)
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="media/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="media/logo-light.png">
+    <img alt="The Dodge Programming Language"
+         src="media/logo-light.png"
+         width="50%">
+  </picture>
 
 [![License](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](https://github.com/FilaCo/dodge#license)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
