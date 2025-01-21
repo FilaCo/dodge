@@ -1,6 +1,7 @@
 <div align="center">
 
-![Dodge logo](media/logo.png)
+![Dodge logo light](media/logo-light.png#gh-light-mode-only)
+![Dodge logo dark](media/logo-dark.png#gh-dark-mode-only)
 
 [![License](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](https://github.com/FilaCo/dodge#license)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
