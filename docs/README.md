@@ -1,3 +1,3 @@
-# Idle's docs
+# The Dodge Programming Language Docs
 
-This folder contains Idle's docs, e.g [spec](spec.md).
+This folder contains relevant docs of Dodge, e.g [spec](spec.md).
