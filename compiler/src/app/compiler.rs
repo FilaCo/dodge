@@ -1,5 +1,4 @@
-use crate::util::ThreadsNumber;
-use std::path::PathBuf;
+use crate::prelude::CompileArgs;
 use thiserror::Error;
 
 #[derive(Debug)]
@@ -11,7 +10,10 @@ impl DodgeCompiler {
     }
 
     pub fn compile(&mut self, args: CompileArgs) -> Result<(), CompileError> {
-        println!("{:?}", args);
+        let CompileArgs {
+            package_root_filepath: _package_root_filepath,
+            threads_number: _threads_number,
+        } = args;
 
         Ok(())
     }
@@ -21,12 +23,6 @@ impl Default for DodgeCompiler {
     fn default() -> Self {
         Self::new()
     }
-}
-
-#[derive(Debug)]
-pub struct CompileArgs {
-    pub package_root_filepath: PathBuf,
-    pub threads_number: ThreadsNumber,
 }
 
 #[derive(Debug, Error)]

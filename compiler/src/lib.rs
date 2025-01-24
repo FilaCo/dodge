@@ -3,4 +3,6 @@ mod domain;
 mod infra;
 mod util;
 
-pub use app::*;
+pub mod prelude {
+    pub use crate::app::*;
+}

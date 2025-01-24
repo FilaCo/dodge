@@ -1,5 +1,5 @@
 use clap::Parser;
-use dodgec::{CompileArgs, CompileError, DodgeCompiler};
+use dodgec::prelude::*;
 use std::path::PathBuf;
 
 fn main() -> Result<(), CompileError> {
@@ -13,15 +13,18 @@ fn main() -> Result<(), CompileError> {
 struct DodgeCompilerCli {
     package_root_filepath: PathBuf,
     #[arg(short, long)]
-    threads_number: Option<u8>,
+    threads_number: Option<usize>,
 }
 
 impl From<DodgeCompilerCli> for CompileArgs {
     fn from(value: DodgeCompilerCli) -> Self {
-        let threads_number = value.threads_number.map(|nt| nt.into()).unwrap_or_default();
+        let DodgeCompilerCli {
+            package_root_filepath,
+            threads_number,
+        } = value;
 
         Self {
-            package_root_filepath: value.package_root_filepath,
+            package_root_filepath,
             threads_number,
         }
     }
