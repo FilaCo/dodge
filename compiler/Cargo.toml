@@ -4,7 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = { version = "1" }
-clap = { version = "4", features = ["derive", "help"] }
-rayon = { version = "1" }
-thiserror = { version = "2" }
+llvm-sys = { version = "191" }
