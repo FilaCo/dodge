@@ -1,0 +1,11 @@
+[package]
+name = "dgc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+pest = { version = "2" }
+pest_derive = { version = "2" }
+salsa = { version = "0.16" }
+thiserror = { version = "2" }
