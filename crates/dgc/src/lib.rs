@@ -1,2 +1,3 @@
-mod db;
-mod parser;
+mod app;
+mod domain;
+mod infra;
