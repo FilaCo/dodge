@@ -8,15 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6c7f85b8-2fc1-44bf-ba78-887b1d1c6213" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/component/mgr.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/component/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/system/mgr.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/system/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/dgc/src/ecs/component.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/component/component.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/dgc/src/ecs/entity.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/entity.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/dgc/src/ecs/system.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/system/system.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crates/dgc/src/ecs/world/world.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/dgc/src/ecs/world/world.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crates/dgc/src/util/bits.rs" beforeDir="false" afterPath="$PROJECT_DIR$/crates/dgc/src/util/bits.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +45,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Cargo.Test ecs::entity::tests::entity_despawn_works.executor": "Run",
     "Cargo.Test entity::tests (1).executor": "Run",
     "Cargo.Test entity::tests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -116,6 +110,23 @@
     <option name="tool" value="Clippy" />
   </component>
   <component name="RunManager" selected="Cargo.Test entity::tests (1)">
+    <configuration name="Test ecs::entity::tests::entity_despawn_works" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package dgc --lib ecs::entity::tests::entity_despawn_works -- --exact" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test entity::tests (1)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="command" value="test --package dgc --lib ecs::entity::tests" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -154,6 +165,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Cargo.Test entity::tests (1)" />
+        <item itemvalue="Cargo.Test ecs::entity::tests::entity_despawn_works" />
         <item itemvalue="Cargo.Test entity::tests" />
       </list>
     </recent_temporary>
@@ -174,7 +186,7 @@
       <workItem from="1739210764365" duration="285000" />
       <workItem from="1739361269067" duration="2408000" />
       <workItem from="1739364693620" duration="1938000" />
-      <workItem from="1739367222161" duration="2187000" />
+      <workItem from="1739367222161" duration="13884000" />
     </task>
     <servers />
   </component>
