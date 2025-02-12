@@ -1,4 +1,4 @@
-use crate::ecs::{ComponentMgr, Entity, EntityBuilder, EntityMgr, SystemMgr};
+use crate::ecs::{ComponentMgr, EntityMgr, SystemMgr};
 use crate::util::{EventBus, ThreadPool};
 use crate::DGCEvent;
 use std::hash::{Hash, Hasher};
