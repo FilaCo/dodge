@@ -1,11 +1,9 @@
-mod dgc;
-mod ecs;
-mod err;
-mod event;
-mod input;
-mod lexing;
-mod util;
+mod cli;
+mod db;
+mod ir;
+mod query;
+pub(crate) mod util;
 
-pub use dgc::*;
-pub use err::*;
-pub use event::*;
+pub mod prelude {
+    pub use super::{cli::*, db::*, ir::*, query::*};
+}

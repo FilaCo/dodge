@@ -1,0 +1,13 @@
+import mod0;
+import mod1;
+
+component FooTag;
+
+component FooEnum = Var0 | Var1(number) | Var2 { first: number, second: number }
+
+component FooRename(number)
+
+component Foo {
+    first: string,
+    second: number
+}

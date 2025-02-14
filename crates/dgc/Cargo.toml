@@ -1,6 +1,14 @@
 [package]
 name = "dgc"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
+ariadne = { version = "0.5", features = ["auto-color"] }
+bitvec = { version = "1" }
+chumsky = { version = "0.9" }
+clap = { version = "4", features = ["derive", "help"] }
+llvm-sys = { version = "191" }
+rayon = { version = "1" }
+salsa = { version = "*", git = "https://github.com/salsa-rs/salsa", branch = "master" }
+thiserror = { version = "2" }
