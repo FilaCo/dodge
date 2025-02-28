@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "cstdlib": "c",
+        "memory_resource": "c",
+        "memory": "c",
+        "new": "c",
+        "climits": "c"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+}

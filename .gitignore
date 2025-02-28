@@ -1,6 +1,2 @@
+.venv/
 node_modules/
-target/
-
-# Added by cargo
-
-/target

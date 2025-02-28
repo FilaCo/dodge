@@ -94,11 +94,8 @@ Comments serve as program documentation. There are three forms:
 
 1. Line comments start with the character sequence `//` and stop at the end of the line.
 2. Block comments start with the character sequence `/*` and stop with the first subsequent character sequence `*/`.
-3. Doc comments start with the character sequence `///` and at the end of the line
 
 A comment cannot start inside a rune or string literal, or inside a comment. A block comment containing no newlines acts like a space. Any other comment acts like a newline.
-
-Doc comments are parsed into HTML library documentation.
 
 ### Tokens
 
@@ -110,7 +107,7 @@ The formal syntax uses semicolons `;` as terminators in a number of productions.
 
 1. When the input is broken into tokens, a semicolon is automatically inserted into the token stream immediately after a line's final token if that token is
    - an identifier
-   - an integer, floating-point, imaginary, rune, or string literal
+   - an number or string literal
    - one of the keywords break, continue, or return
    - a punctuation `)`, `]`, or `}`
 2. To allow complex statements to occupy a single line, a semicolon may be omitted before a closing `)` or `}`.
@@ -168,10 +165,8 @@ The following character sequences represent [operators](#operators) and punctuat
         . :
 ```
 
-### Integer literals
+### Number literals
 
-An integer literal is a sequence of digits representing an integer constant. An optional prefix sets a non-decimal base: 0b or 0B for binary, 0, 0o, or 0O for octal, and 0x or 0X for hexadecimal. A single 0 is considered a decimal zero. In hexadecimal literals, letters a through f and A through F represent values 10 through 15.
 
-For readability, an underscore character `_` may appear after a base prefix or between successive digits; such underscores do not change the literal's value.
 
 ### Predeclared identifiers
