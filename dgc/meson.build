@@ -3,10 +3,12 @@ project('dgc', 'c',
   default_options : ['warning_level=3', 'b_sanitize=address'])
 
 thread_dep = dependency('threads')
-unity_dep = dependency('unity')
 
 inc_dir = include_directories('include')
-src = ['src/main.c', 'src/entity.c']
+src = [
+  'src/main.c', 
+  'src/dgc.c'
+]
 
 executable('dgc', 
   sources : src,

@@ -5,18 +5,13 @@
 
 typedef size_t entity;
 
-typedef struct {
-  size_t cap;
-  size_t next_pos;
-  size_t available;
-  entity* buf;
-} EntityManager;
+typedef struct entitymanager_t *entitymanager;
 
-EntityManager *em_new(void);
-EntityManager *em_with_capacity(const size_t);
-void em_free(EntityManager *);
+entitymanager entitymanager_new(void);
+entitymanager entitymanager_with_capacity(size_t);
+void entitymanager_free(entitymanager);
 
-entity em_spawn(EntityManager *);
-void em_destroy(EntityManager *, entity);
+entity entitymanager_spawn(entitymanager);
+void entitymanager_destroy(entitymanager, entity);
 
 #endif // ECS_ENTITY_H
