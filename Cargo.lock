@@ -5,3 +5,19 @@ version = 4
 [[package]]
 name = "dgc"
 version = "0.1.0"
+
+[[package]]
+name = "dgc_ast"
+version = "0.0.0"
+
+[[package]]
+name = "dgc_diag"
+version = "0.0.0"
+
+[[package]]
+name = "dgc_lexer"
+version = "0.0.0"
+
+[[package]]
+name = "dgc_parse"
+version = "0.0.0"
