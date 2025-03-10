@@ -1,14 +1,6 @@
-use crate::diagnostic::Spanned;
 use crate::ir::{NumVal, StrVal, Symbol};
 
-#[salsa::tracked]
-pub struct Tokens<'db> {
-    #[tracked]
-    #[return_ref]
-    pub value: Vec<Spanned<Token<'db>>>,
-}
-
-#[derive(salsa::Update, Debug)]
+#[derive(Debug)]
 pub enum Token<'db> {
     /// A block comment, e.g. `/* block comment */`.
     ///
