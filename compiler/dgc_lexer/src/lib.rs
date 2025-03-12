@@ -1,5 +1,5 @@
-pub mod v1;
+pub mod token;
 
 pub mod prelude {
-    pub use crate::v1;
+    pub use crate::token::*;
 }

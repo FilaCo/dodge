@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "dgc"
-version = "0.1.0"
+version = "0.0.0"
 
 [[package]]
 name = "dgc_ast"
@@ -12,6 +12,14 @@ version = "0.0.0"
 
 [[package]]
 name = "dgc_diag"
+version = "0.0.0"
+
+[[package]]
+name = "dgc_driver"
+version = "0.0.0"
+
+[[package]]
+name = "dgc_interface"
 version = "0.0.0"
 
 [[package]]

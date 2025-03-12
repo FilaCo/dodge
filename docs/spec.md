@@ -1,37 +1,40 @@
 # The Dodge Programming Language Specification
 
-Language version: **dodge0.1**
+Language edition: **2025**
 
 ## Table of contents
 
 - [The Dodge Programming Language Specification](#the-dodge-programming-language-specification)
-  - [Table of contents](#table-of-contents)
-  - [Intro](#intro)
-  - [Notation](#notation)
-  - [Source Code Representation](#source-code-representation)
-    - [Characters](#characters)
-    - [Letters and Digits](#letters-and-digits)
-  - [Lexical elements](#lexical-elements)
-    - [Comments](#comments)
-    - [Tokens](#tokens)
-    - [Semicolons](#semicolons)
-    - [Identifiers](#identifiers)
-    - [Keywords](#keywords)
-    - [Operators and punctuation](#operators-and-punctuation)
-    - [Integer literals](#integer-literals)
-    - [Predeclared identifiers](#predeclared-identifiers)
+    - [Table of contents](#table-of-contents)
+    - [Intro](#intro)
+    - [Notation](#notation)
+    - [Source Code Representation](#source-code-representation)
+        - [Characters](#characters)
+        - [Letters and Digits](#letters-and-digits)
+    - [Lexical elements](#lexical-elements)
+        - [Comments](#comments)
+        - [Tokens](#tokens)
+        - [Semicolons](#semicolons)
+        - [Identifiers](#identifiers)
+        - [Keywords](#keywords)
+        - [Operators and punctuation](#operators-and-punctuation)
+        - [Integer literals](#integer-literals)
+        - [Predeclared identifiers](#predeclared-identifiers)
 
 ## Intro
 
 This is the reference manual for the Dodge programming language.
 
-Dodge is a domain specific language (**DSL**) for game development designed with Entity Component System (**ECS**) pattern and data oriented design (**DOD**) in mind. It is *statically* *strongly* typed. Programs are constructed from modules, whose properties allow efficient management of dependencies.
+Dodge is a domain specific language (**DSL**) for game development designed with Entity Component System (**ECS**)
+pattern and data oriented design (**DOD**) in mind. It is *statically* *strongly* typed. Programs are constructed from
+modules, whose properties allow efficient management of dependencies.
 
 The syntax is compact and simple allowing for easy analysis by non-programmers, such as game designers.
 
 ## Notation
 
-The syntax is specified using a [variant](https://en.wikipedia.org/wiki/Wirth_syntax_notation) of Extended Backus-Naur Form (EBNF):
+The syntax is specified using a [variant](https://en.wikipedia.org/wiki/Wirth_syntax_notation) of Extended Backus-Naur
+Form (EBNF):
 
 ```ebnf
 Syntax      = { Production } .
@@ -53,13 +56,18 @@ Productions are expressions constructed from terms and the following operators, 
 {}  repetition (0 to n times)
 ```
 
-Lowercase production names are used to identify lexical (terminal) tokens. Non-terminals are in CamelCase. Lexical tokens are enclosed in double quotes "" or back quotes ``.
+Lowercase production names are used to identify lexical (terminal) tokens. Non-terminals are in CamelCase. Lexical
+tokens are enclosed in double quotes "" or back quotes ``.
 
-The form `a … b` represents the set of characters from a through b as alternatives. The horizontal ellipsis `…` is also used elsewhere in the spec to informally denote various enumerations or code snippets that are not further specified. The character `…` (as opposed to the three characters `...`) is not a token of the Dodge language.
+The form `a … b` represents the set of characters from a through b as alternatives. The horizontal ellipsis `…` is also
+used elsewhere in the spec to informally denote various enumerations or code snippets that are not further specified.
+The character `…` (as opposed to the three characters `...`) is not a token of the Dodge language.
 
 ## Source Code Representation
 
-Source code is Unicode text encoded in UTF-8. The text is not canonicalized, so a single accented code point is distinct from the same character constructed from combining an accent and a letter; those are treated as two code points. For simplicity, this document will use the unqualified term character to refer to a Unicode code point in the source text.
+Source code is Unicode text encoded in UTF-8. The text is not canonicalized, so a single accented code point is distinct
+from the same character constructed from combining an accent and a letter; those are treated as two code points. For
+simplicity, this document will use the unqualified term character to refer to a Unicode code point in the source text.
 
 Each code point is distinct; for instance, uppercase and lowercase letters are different characters.
 
@@ -96,30 +104,38 @@ Comments serve as program documentation. There are three forms:
 2. Block comments start with the character sequence `/*` and stop with the first subsequent character sequence `*/`.
 3. Doc comments start with the character sequence `///` and at the end of the line
 
-A comment cannot start inside a rune or string literal, or inside a comment. A block comment containing no newlines acts like a space. Any other comment acts like a newline.
+A comment cannot start inside a rune or string literal, or inside a comment. A block comment containing no newlines acts
+like a space. Any other comment acts like a newline.
 
 Doc comments are parsed into HTML library documentation.
 
 ### Tokens
 
-Tokens form the vocabulary of the Dodge language. There are four classes: *identifiers*, *keywords*, *operators* and *punctuation*, and *literals*. *White space*, formed from spaces (U+0020), horizontal tabs (U+0009), carriage returns (U+000D), and newlines (U+000A), is ignored except as it separates tokens that would otherwise combine into a single token. Also, a newline or end of file may trigger the insertion of a [semicolon](#semicolons). While breaking the input into tokens, the next token is the longest sequence of characters that form a valid token.
+Tokens form the vocabulary of the Dodge language. There are four classes: *identifiers*, *keywords*, *operators* and
+*punctuation*, and *literals*. *White space*, formed from spaces (U+0020), horizontal tabs (U+0009), carriage returns (
+U+000D), and newlines (U+000A), is ignored except as it separates tokens that would otherwise combine into a single
+token. Also, a newline or end of file may trigger the insertion of a [semicolon](#semicolons). While breaking the input
+into tokens, the next token is the longest sequence of characters that form a valid token.
 
 ### Semicolons
 
-The formal syntax uses semicolons `;` as terminators in a number of productions. Dodge programs may omit most of these semicolons using the following two rules:
+The formal syntax uses semicolons `;` as terminators in a number of productions. Dodge programs may omit most of these
+semicolons using the following two rules:
 
-1. When the input is broken into tokens, a semicolon is automatically inserted into the token stream immediately after a line's final token if that token is
-   - an identifier
-   - an integer, floating-point, imaginary, rune, or string literal
-   - one of the keywords break, continue, or return
-   - a punctuation `)`, `]`, or `}`
+1. When the input is broken into tokens, a semicolon is automatically inserted into the token stream immediately after a
+   line's final token if that token is
+    - an identifier
+    - an integer, floating-point, imaginary, rune, or string literal
+    - one of the keywords break, continue, or return
+    - a punctuation `)`, `]`, or `}`
 2. To allow complex statements to occupy a single line, a semicolon may be omitted before a closing `)` or `}`.
 
 To reflect idiomatic use, code examples in this document elide semicolons using these rules.
 
 ### Identifiers
 
-Identifiers name program entities such as components and systems. An identifier is a sequence of one or more letters and digits. The first character in an identifier must be a letter.
+Identifiers name program entities such as components and systems. An identifier is a sequence of one or more letters and
+digits. The first character in an identifier must be a letter.
 
 ```ebnf
 identifier = letter { letter | unicode_digit } .
@@ -170,8 +186,11 @@ The following character sequences represent [operators](#operators) and punctuat
 
 ### Integer literals
 
-An integer literal is a sequence of digits representing an integer constant. An optional prefix sets a non-decimal base: 0b or 0B for binary, 0, 0o, or 0O for octal, and 0x or 0X for hexadecimal. A single 0 is considered a decimal zero. In hexadecimal literals, letters a through f and A through F represent values 10 through 15.
+An integer literal is a sequence of digits representing an integer constant. An optional prefix sets a non-decimal base:
+0b or 0B for binary, 0, 0o, or 0O for octal, and 0x or 0X for hexadecimal. A single 0 is considered a decimal zero. In
+hexadecimal literals, letters a through f and A through F represent values 10 through 15.
 
-For readability, an underscore character `_` may appear after a base prefix or between successive digits; such underscores do not change the literal's value.
+For readability, an underscore character `_` may appear after a base prefix or between successive digits; such
+underscores do not change the literal's value.
 
 ### Predeclared identifiers
