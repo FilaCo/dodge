@@ -4,3 +4,7 @@ version = "0.0.0"
 edition = "2024"
 
 [dependencies]
+# tidy-alphabetical-start
+heapless = { version = "0.8" }
+jemallocator = { version = "0.5", optional = true }
+# tidy-alphabetical-end
