@@ -4,9 +4,10 @@
 #![allow(unused)]
 // > immature_allowances
 #![feature(allocator_api)]
-mod entity;
-mod world;
+#![feature(sized_type_properties)]
+
+mod linear;
 
 pub mod prelude {
-    pub use crate::world::*;
+    pub use crate::linear::*;
 }

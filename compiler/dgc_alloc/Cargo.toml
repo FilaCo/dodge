@@ -1,7 +1,6 @@
 [package]
-name = "dgc_ecs"
+name = "dgc_alloc"
 version = "0.0.0"
 edition = "2024"
 
 [dependencies]
-dgc_alloc = { path = "../dgc_alloc" }

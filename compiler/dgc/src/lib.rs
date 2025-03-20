@@ -4,6 +4,12 @@
 #![allow(unused)]
 // > immature_allowances
 
+#[cfg(not(target_env = "msvc"))]
+use tikv_jemallocator::Jemalloc;
+#[cfg(not(target_env = "msvc"))]
+#[global_allocator]
+static GLOBAL_ALLOC: Jemalloc = Jemalloc;
+
 mod app;
 
 pub mod prelude {
