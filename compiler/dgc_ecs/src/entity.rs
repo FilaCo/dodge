@@ -1,15 +1,26 @@
 use dgc_alloc::prelude::Linear;
 use std::alloc::Global;
 use std::marker::PhantomData;
+use std::sync::atomic::{AtomicUsize, Ordering};
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Entity(usize);
+
+impl Entity {
+    fn position(&self) -> usize {
+        self.0
+    }
+
+    fn generation(&self) -> usize {
+        self.0
+    }
+}
 
 #[derive(Debug)]
 pub struct EntityManager {
     entities: Vec<Entity, Linear<'static, Global>>,
-    available: usize,
-    next_pos: usize,
+    available: AtomicUsize,
+    next_pos: AtomicUsize,
 }
 
 impl EntityManager {
@@ -22,7 +33,15 @@ impl EntityManager {
     }
 
     pub fn spawn(&mut self) -> Entity {
-        todo!()
+        if self.available.load(Ordering::SeqCst) > 0 {
+            // let holder = self.entities[self.next_pos];
+            todo!()
+        } else {
+            let entity = Entity(self.next_pos.fetch_add(1, Ordering::SeqCst));
+            self.entities.push(entity);
+
+            entity
+        }
     }
 
     pub fn despawn(&mut self, entity: Entity) {

@@ -4,4 +4,6 @@ version = "0.0.0"
 edition = "2024"
 
 [dependencies]
+# tidy-alphabetical-start
 dgc_alloc = { path = "../dgc_alloc" }
+# tidy-alphabetical-end
