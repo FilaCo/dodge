@@ -1,4 +1,5 @@
 use std::alloc::{AllocError, Allocator, Global, Layout};
+use std::cmp::max;
 use std::mem::SizedTypeProperties;
 use std::ops::Range;
 use std::ptr::NonNull;
@@ -15,10 +16,12 @@ impl<'parent, A: Allocator> Linear<'parent, A> {
     const DEFAULT_CAPACITY: usize = 4096;
 
     pub fn new_in(alloc: &'parent A) -> Self {
-        Self::with_capacity_in(alloc, Self::DEFAULT_CAPACITY)
+        Self::with_capacity_in(Self::DEFAULT_CAPACITY, alloc)
     }
 
-    pub fn with_capacity_in(alloc: &'parent A, capacity: usize) -> Self {
+    pub fn with_capacity_in(capacity: usize, alloc: &'parent A) -> Self {
+        let capacity = max(capacity, Self::DEFAULT_CAPACITY); // TODO: remove dirty hack
+
         let layout = Layout::array::<u8>(capacity).expect("capacity overflow");
 
         let ptr = alloc.allocate(layout).expect("allocation failed");
@@ -36,8 +39,8 @@ impl<'parent, A: Allocator> Linear<'parent, A> {
     ///
     /// # Safety
     /// Pointers to this allocator memory must be freed.
-    pub unsafe fn reset(self) {
-        self.offset.fetch_and(self.bounds.start, Ordering::SeqCst);
+    pub unsafe fn reset(&self) {
+        self.offset.swap(self.bounds.start, Ordering::SeqCst);
     }
 
     /// Free allocator memory.
@@ -101,7 +104,7 @@ mod tests {
     #[test]
     fn it_works_with_vec() {
         // arrange
-        let alloc = Linear::with_capacity_in(&Global, 8);
+        let alloc = Linear::with_capacity_in(8, &Global);
         let offset = alloc.offset.load(Ordering::SeqCst);
         let expected_offset = offset + 8;
 
@@ -116,6 +119,9 @@ mod tests {
             expected_offset,
             vec.allocator().offset.load(Ordering::SeqCst)
         );
-        assert_eq!(vec.allocator().bounds.end - vec.allocator().bounds.start, 8);
+        assert_eq!(
+            vec.allocator().bounds.end - vec.allocator().bounds.start,
+            4096
+        );
     }
 }
