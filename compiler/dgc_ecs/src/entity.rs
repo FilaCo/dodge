@@ -1,65 +1,54 @@
-use dgc_alloc::prelude::Linear;
-use std::alloc::Global;
-use std::marker::PhantomData;
-
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Entity(usize);
 
 impl Entity {
-    #[inline(always)]
+    #[inline]
     const fn new(position: usize, generation: usize) -> Self {
         Entity(position | Self::shl_generation(generation))
     }
 
-    #[inline(always)]
+    #[inline]
     const fn position(&self) -> usize {
         self.0 & Self::position_mask()
     }
 
-    #[inline(always)]
+    #[inline]
     const fn generation(&self) -> usize {
         Self::shr_generation(self.0)
     }
 
-    #[inline(always)]
+    #[inline]
     const fn shr_generation(generation: usize) -> usize {
         generation >> Self::position_bits()
     }
 
-    #[inline(always)]
+    #[inline]
     const fn shl_generation(generation: usize) -> usize {
         generation << Self::position_bits()
     }
 
-    #[inline(always)]
+    #[inline]
     const fn position_mask() -> usize {
         (1 << Self::position_bits()) - 1
     }
 
-    #[inline(always)]
+    #[inline]
     const fn position_bits() -> usize {
         size_of::<usize>() * 5
     }
 }
 
 #[derive(Debug)]
-pub struct EntityManager {
-    entities: Vec<Entity, Linear<'static, Global>>,
+pub struct EntitySet {
+    entities: Vec<Entity>,
     available: usize,
     next_position: usize,
 }
 
-impl EntityManager {
+impl EntitySet {
     pub fn new() -> Self {
-        Self::with_capacity(0)
-    }
-
-    pub fn with_capacity(capacity: usize) -> Self {
         Self {
-            entities: Vec::with_capacity_in(
-                capacity,
-                Linear::with_capacity_in(capacity * size_of::<Entity>(), &Global),
-            ),
+            entities: Vec::new(),
             available: 0,
             next_position: 0,
         }
@@ -91,7 +80,7 @@ impl EntityManager {
         !self.is_alive(entity)
     }
 
-    #[inline(always)]
+    #[inline]
     fn recycle(&mut self) -> Entity {
         // holder stores recycled entity generation
         let holder = self.entities[self.next_position];
@@ -105,7 +94,7 @@ impl EntityManager {
         recycled
     }
 
-    #[inline(always)]
+    #[inline]
     fn spawn_impl(&mut self) -> Entity {
         // new spawned entity has version equals to 0
         let spawned = Entity(self.next_position);
@@ -118,7 +107,7 @@ impl EntityManager {
     }
 }
 
-impl Default for EntityManager {
+impl Default for EntitySet {
     fn default() -> Self {
         Self::new()
     }
@@ -131,7 +120,7 @@ mod tests {
     #[test]
     fn it_spawns_entity() {
         // arrange
-        let mut em = EntityManager::default();
+        let mut em = EntitySet::default();
         let expected: Entity = Entity(0);
 
         // act
@@ -144,7 +133,7 @@ mod tests {
     #[test]
     fn it_despawns_entity() {
         // arrange
-        let mut em = EntityManager::default();
+        let mut em = EntitySet::default();
         let entity = em.spawn();
 
         let expected_available = 1;
@@ -162,7 +151,7 @@ mod tests {
     #[test]
     fn it_recycle_entities() {
         // arrange
-        let mut em = EntityManager::default();
+        let mut em = EntitySet::default();
 
         let expected_entities_len = 10;
 

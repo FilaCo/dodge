@@ -1,15 +1,12 @@
 use crate::prelude::DgcEvent;
 use clap::Parser;
-use dgc_ecs::prelude::WorldManager;
 use std::path::PathBuf;
+use std::sync::LazyLock;
 use std::sync::mpsc::{Receiver, Sender};
-use std::sync::{Arc, LazyLock};
 use thiserror::Error;
 
 #[derive(Debug)]
-pub struct Dgc {
-    wm: Arc<WorldManager>,
-}
+pub struct Dgc {}
 
 impl Dgc {
     fn new() -> Self {
@@ -21,9 +18,6 @@ impl Dgc {
     }
 
     pub fn run(&self) -> Result<(), DgcError> {
-        // loop {
-        //     self.wm.run()
-        // }
         todo!()
     }
 
@@ -92,6 +86,12 @@ impl DgcBuilder {
     }
 
     pub fn with_defaults(mut self) -> Self {
+        if self.output.is_undefined() {
+            if let Some(input) = self.input.clone() {
+                self.output = OptArg::Defined(Some(input))
+            }
+        }
+
         self
     }
 

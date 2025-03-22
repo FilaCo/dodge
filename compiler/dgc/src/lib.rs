@@ -11,6 +11,7 @@ use tikv_jemallocator::Jemalloc;
 static GLOBAL_ALLOC: Jemalloc = Jemalloc;
 
 mod app;
+mod feature;
 
 pub mod prelude {
     pub use crate::app::*;

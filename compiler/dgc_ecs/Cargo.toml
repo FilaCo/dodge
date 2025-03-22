@@ -5,5 +5,6 @@ edition = "2024"
 
 [dependencies]
 # tidy-alphabetical-start
-dgc_alloc = { path = "../dgc_alloc" }
+# dgc_alloc = { path = "../dgc_alloc" }
+thiserror = { workspace = true }
 # tidy-alphabetical-end

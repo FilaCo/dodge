@@ -10,7 +10,7 @@ clap = { version = "4", features = ["derive", "help"] }
 dgc_ecs = { path = "../dgc_ecs" }
 heapless = { version = "0.8" }
 rayon = { version = "1" }
-thiserror = { version = "2" }
+thiserror = { workspace = true }
 # tidy-alphabetical-end
 
 [target.'cfg(not(target_env = "msvc"))'.dependencies]
